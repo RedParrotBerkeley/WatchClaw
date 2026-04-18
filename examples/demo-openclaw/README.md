@@ -2,12 +2,14 @@
 
 This folder is a tiny demo target for WatchClaw.
 
-It intentionally includes:
+It now intentionally includes a realistic OpenClaw failure story:
 
-- a risky docs shell example
-- a shortened link in docs
-- an unsafe workflow interpolation pattern
-- repeated rate-limit entries in a session log
+- a morning-brief style scheduled job that teaches `thread-create` with `channel` instead of `target`
+- the same scheduled job allowing `BREAKING WORLD NEWS` to be omitted under quota pressure
+- a cron job missing `toolsAllow` and `thinking`
+- an orphan `openclaw.json` key showing config drift
+- a dangerous `.lobster` command
+- session logs showing rate-limit churn and compaction pressure
 
 Run from the repo root:
 

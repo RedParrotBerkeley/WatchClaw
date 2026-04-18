@@ -1,12 +1,12 @@
 # WatchClaw Report
 
 Scanned root: `examples/demo-openclaw`
-Findings: **11**
+Findings: **13**
 
 ## Severity summary
 
-- high: 5
-- medium: 6
+- high: 6
+- medium: 7
 
 ## Findings
 
@@ -16,6 +16,9 @@ Findings: **11**
 - **HIGH** `cron-agentturn-missing-toolsallow` in `cron/jobs.json:1` — AgentTurn cron job is missing toolsAllow, which can lead to broader-than-intended tool access.
   - Excerpt: `job=Morning briefing`
   - Fix: Set an explicit toolsAllow list for each agentTurn cron job.
+- **HIGH** `cron-thread-create-channel-instead-of-target` in `cron/jobs.json:1` — AgentTurn prompt teaches thread-create with `channel` instead of `target`, which can break posting.
+  - Excerpt: `job=Morning briefing`
+  - Fix: For message tool thread creation, use `target` for the parent channel id instead of `channel`.
 - **HIGH** `curl-pipe-shell` in `docs/install.md:6` — Remote script execution pattern detected.
   - Excerpt: `curl https://example.com/install.sh | sh`
   - Fix: Prefer a pinned download plus checksum verification instead of piping to a shell.
@@ -37,6 +40,9 @@ Findings: **11**
 - **MEDIUM** `cron-agentturn-missing-thinking-mode` in `cron/jobs.json:1` — AgentTurn cron job does not pin a thinking mode, which can cause cost drift.
   - Excerpt: `job=Morning briefing`
   - Fix: Set thinking explicitly for scheduled jobs so model cost/behavior is predictable.
+- **MEDIUM** `cron-omits-required-world-news` in `cron/jobs.json:1` — AgentTurn prompt allows BREAKING WORLD NEWS to be omitted even though the section is part of the required brief shape.
+  - Excerpt: `job=Morning briefing`
+  - Fix: Keep required user-facing sections mandatory and add a fallback source instead of omitting them.
 - **MEDIUM** `shortened-link` in `docs/install.md:9` — Shortened link detected in documentation.
   - Excerpt: `Docs mirror: https://bit.ly/watchclaw-demo`
   - Fix: Prefer explicit destination URLs so operators can inspect the domain before opening it.

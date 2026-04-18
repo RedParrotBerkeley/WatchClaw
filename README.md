@@ -41,15 +41,14 @@ That is the main product move: **copy it in, run it, get findings immediately.**
 
 ## What it catches in the demo
 
-The bundled demo is intentionally small and immediately legible. One scan flags:
+The bundled demo is intentionally small and immediately legible. One scan now tells a more painful OpenClaw story:
 
-- a workflow that pipes untrusted GitHub metadata into `bash`
-- a `.lobster` pipeline that curls straight into `bash`
-- a docs snippet that teaches `curl ... | sh`
-- a shortened link in docs that hides the destination
-- an `openclaw.json` orphan key that hints at a bad write path
+- a morning-brief style scheduled job that uses `thread-create` with `channel` instead of `target`
+- the same job allowing `BREAKING WORLD NEWS` to disappear under quota pressure
 - a cron job with missing `toolsAllow` and no thinking pin
-- a large single-turn token spike plus compaction pressure in session logs
+- an orphan `openclaw.json` key that hints at a bad write path
+- a dangerous `.lobster` pipeline that curls straight into `bash`
+- session logs showing rate-limit churn and compaction pressure
 
 That gives strangers a fast answer to the only question that really matters on first visit: **what badness does this catch right away?**
 
@@ -67,11 +66,11 @@ That is the real wedge: **drop it into an OpenClaw tree and it catches the kinds
 
 ## Example: the kind of bug this should catch
 
-One of the easiest ways to burn time in OpenClaw is a scheduled job that *looks* normal but is missing the exact guardrails that keep it cheap and reliable.
+The headline demo is now a morning-brief style failure chain: a scheduled job teaches `thread-create` with `channel` instead of `target`, and the same prompt says it can omit `BREAKING WORLD NEWS` if search fails.
 
-The demo now includes a `cron/jobs.json` example where an `agentTurn` job is missing `toolsAllow` and has no pinned `thinking` mode. WatchClaw flags both immediately.
+WatchClaw flags both before the job ever runs. It also flags the missing `toolsAllow` and unpinned `thinking` mode sitting next to them in `cron/jobs.json`.
 
-That is the kind of mistake that turns into noisy incidents, weird behavior, or unnecessary spend if nobody notices early.
+That is the kind of mistake that turns into multi-day workflow breakage, missing user-facing sections, weird behavior, or unnecessary spend if nobody notices early.
 
 ## Why someone would actually use it
 
@@ -164,24 +163,23 @@ PYTHONPATH=src python3 -m watchclaw.cli scan examples/demo-openclaw \
 
 ### Demo summary output
 
-This is the proof-of-value snapshot a stranger should be able to understand in a few seconds. Notice that the top findings are not just generic security lint — they include OpenClaw-native workflow/config failures:
+This is the proof-of-value snapshot a stranger should be able to understand in a few seconds. Notice that the top findings now center on a real OpenClaw workflow failure chain instead of generic scanner bait:
 
 ```md
 ## WatchClaw Summary
 
 - scanned root: `examples/demo-openclaw`
-- total findings: **11**
-- high: **5**
-- medium: **6**
+- total findings: **13**
+- high: **6**
+- medium: **7**
 
 ### Top findings
 
-- `unsafe-workflow-interpolation` in `.github/workflows/demo.yml:7` — Potentially unsafe GitHub context interpolation in executable workflow content.
-- `curl-pipe-shell` in `docs/install.md:6` — Remote script execution pattern detected.
-- `lobster-remote-shell-pipe` in `workflows/deploy.lobster:2` — Lobster command pipes a remote download directly into a shell.
-- `openclaw-orphan-top-level-key` in `openclaw.json:1` — openclaw.json contains an unexpected top-level key that may indicate drift or a bad write path.
+- `cron-thread-create-channel-instead-of-target` in `cron/jobs.json:1` — AgentTurn prompt teaches thread-create with `channel` instead of `target`, which can break posting.
 - `cron-agentturn-missing-toolsallow` in `cron/jobs.json:1` — AgentTurn cron job is missing toolsAllow, which can lead to broader-than-intended tool access.
-- `high-token-turn` in `agents/main/sessions/demo.jsonl:3` — Large single-turn token usage detected.
+- `cron-omits-required-world-news` in `cron/jobs.json:1` — AgentTurn prompt allows BREAKING WORLD NEWS to be omitted even though the section is part of the required brief shape.
+- `openclaw-orphan-top-level-key` in `openclaw.json:1` — openclaw.json contains an unexpected top-level key that may indicate drift or a bad write path.
+- `lobster-remote-shell-pipe` in `workflows/deploy.lobster:2` — Lobster command pipes a remote download directly into a shell.
 - `context-compaction-pressure` in `agents/main/sessions/demo.jsonl:3` — Context overflow or compaction diagnostics appeared in session logs.
 ```
 

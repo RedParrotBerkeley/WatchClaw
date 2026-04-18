@@ -5,7 +5,8 @@
       "name": "Morning briefing",
       "payload": {
         "kind": "agentTurn",
-        "message": "demo job without tool restrictions or thinking pin"
+        "message": "MORNING BRIEFING — execute and post, no fluff.\n\nUse this JSON shape for thread creation:\n{\"action\":\"thread-create\",\"channel\":\"1494099592667467816\",\"threadName\":\"morning-briefing-apr-18\"}\n\n**BREAKING WORLD NEWS**\n- bullet\n- bullet\n\nIf search fails or hits quota, omit BREAKING WORLD NEWS and continue.",
+        "model": "claude-haiku-4-5-20251001"
       }
     }
   ]

@@ -20,6 +20,15 @@
       "remediation": "Set an explicit toolsAllow list for each agentTurn cron job."
     },
     {
+      "rule_id": "cron-thread-create-channel-instead-of-target",
+      "severity": "high",
+      "path": "cron/jobs.json",
+      "line_number": 1,
+      "message": "AgentTurn prompt teaches thread-create with `channel` instead of `target`, which can break posting.",
+      "excerpt": "job=Morning briefing",
+      "remediation": "For message tool thread creation, use `target` for the parent channel id instead of `channel`."
+    },
+    {
       "rule_id": "curl-pipe-shell",
       "severity": "high",
       "path": "docs/install.md",
@@ -81,6 +90,15 @@
       "message": "AgentTurn cron job does not pin a thinking mode, which can cause cost drift.",
       "excerpt": "job=Morning briefing",
       "remediation": "Set thinking explicitly for scheduled jobs so model cost/behavior is predictable."
+    },
+    {
+      "rule_id": "cron-omits-required-world-news",
+      "severity": "medium",
+      "path": "cron/jobs.json",
+      "line_number": 1,
+      "message": "AgentTurn prompt allows BREAKING WORLD NEWS to be omitted even though the section is part of the required brief shape.",
+      "excerpt": "job=Morning briefing",
+      "remediation": "Keep required user-facing sections mandatory and add a fallback source instead of omitting them."
     },
     {
       "rule_id": "shortened-link",

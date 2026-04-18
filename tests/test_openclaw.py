@@ -11,7 +11,7 @@ def test_scan_openclaw_finds_lobster_jobs_and_orphan_keys(tmp_path: Path) -> Non
         encoding='utf-8',
     )
     (tmp_path / 'cron' / 'jobs.json').write_text(
-        '{"jobs":[{"name":"Morning briefing","payload":{"kind":"agentTurn"}}]}',
+        '{"jobs":[{"name":"Morning briefing","payload":{"kind":"agentTurn","message":"{\\"action\\":\\"thread-create\\",\\"channel\\":\\"1494\\"} BREAKING WORLD NEWS omit BREAKING WORLD NEWS"}}]}',
         encoding='utf-8',
     )
     (tmp_path / 'openclaw.json').write_text(
@@ -26,6 +26,8 @@ def test_scan_openclaw_finds_lobster_jobs_and_orphan_keys(tmp_path: Path) -> Non
     assert 'lobster-unrestricted-expansion' in rule_ids
     assert 'cron-agentturn-missing-toolsallow' in rule_ids
     assert 'cron-agentturn-missing-thinking-mode' in rule_ids
+    assert 'cron-thread-create-channel-instead-of-target' in rule_ids
+    assert 'cron-omits-required-world-news' in rule_ids
     assert 'openclaw-orphan-top-level-key' in rule_ids
 
 

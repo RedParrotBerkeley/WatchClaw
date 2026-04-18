@@ -1,1 +1,1 @@
-⚠️ WatchClaw found 11 issue(s) in `demo-openclaw`: [HIGH] unsafe-workflow-interpolation at .github/workflows/demo.yml:7; [HIGH] cron-agentturn-missing-toolsallow at cron/jobs.json:1; [HIGH] curl-pipe-shell at docs/install.md:6 (+8 more)
+⚠️ WatchClaw found 13 issue(s) in `demo-openclaw`: [HIGH] unsafe-workflow-interpolation at .github/workflows/demo.yml:7; [HIGH] cron-agentturn-missing-toolsallow at cron/jobs.json:1; [HIGH] cron-thread-create-channel-instead-of-target at cron/jobs.json:1 (+10 more)
