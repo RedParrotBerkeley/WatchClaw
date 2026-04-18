@@ -100,6 +100,8 @@ It is not trying to replace an observability stack. It is trying to catch high-s
 PYTHONPATH=src python3 -m watchclaw.cli scan .
 ```
 
+WatchClaw exits non-zero only when it finds at least one **high** severity issue.
+
 ### What `watchclaw.sh` does
 
 ```bash
@@ -147,13 +149,7 @@ That gives new visitors a fast proof-of-value without making them guess what the
 ./scripts/demo.sh
 ```
 
-### Demo screenshots
-
-**Hero card**
-
-![WatchClaw hero card](assets/watchclaw-hero-card-v2.png)
-
-**Terminal scan run**
+### Demo screenshot
 
 ![WatchClaw terminal demo](assets/demo-terminal-v5.png)
 
@@ -199,7 +195,7 @@ This is the proof-of-value snapshot a stranger should be able to understand in a
 ### Demo Discord alert output
 
 ```text
-⚠️ WatchClaw found 11 issue(s) in `demo-openclaw`: [HIGH] unsafe-workflow-interpolation at .github/workflows/demo.yml:7; [HIGH] lobster-remote-shell-pipe at workflows/deploy.lobster:2; [HIGH] curl-pipe-shell at docs/install.md:6 (+8 more)
+⚠️ WatchClaw found 13 issue(s) in `demo-openclaw`: [HIGH] cron-thread-create-channel-instead-of-target at cron/jobs.json:1; [HIGH] cron-agentturn-missing-toolsallow at cron/jobs.json:1; [HIGH] openclaw-orphan-top-level-key at openclaw.json:1 (+10 more)
 ```
 
 ## Why WatchClaw exists
@@ -230,6 +226,8 @@ WatchClaw is a sharp, OpenClaw-specific scanner that helps maintainers catch:
 - **OpenClaw-specific config and scheduling mistakes**
 - **usage and spend anomalies**
 - **high-signal operational regressions**
+- **thread-create shape bugs in scheduled prompts**
+- **required-section regressions in user-facing briefs**
 
 ## Initial use cases
 

@@ -6,18 +6,6 @@ from pathlib import Path
 
 from watchclaw.models import Finding
 
-OPENCLAW_ALLOWED_TOP_LEVEL_KEYS = {
-    'agents',
-    'channels',
-    'memoryFlush',
-    'globalCompactionPrompt',
-    'gateway',
-    'mcpServers',
-    'skills',
-    'logging',
-    'runtime',
-    'watchdog',
-}
 UNSAFE_PIPE_RE = re.compile(r'\b(?:curl|wget)\b[^\n|]*\|\s*(?:sh|bash|zsh)\b', re.IGNORECASE)
 TOOLS_ALLOW_SAFE = {'exec', 'message', 'web_search', 'web_fetch', 'lobster'}
 THREAD_CREATE_CHANNEL_RE = re.compile(r'"action"\s*:\s*"thread-create"[^\n{}]*"channel"\s*:', re.IGNORECASE)
@@ -49,29 +37,9 @@ def _scan_lobster_files(root: Path) -> list[Finding]:
             if 'command:' in lowered:
                 command = stripped.split('command:', 1)[1].strip()
                 if UNSAFE_PIPE_RE.search(command):
-                    findings.append(
-                        Finding(
-                            rule_id='lobster-remote-shell-pipe',
-                            severity='high',
-                            path=path,
-                            line_number=idx,
-                            message='Lobster command pipes a remote download directly into a shell.',
-                            excerpt=stripped,
-                            remediation='Split remote downloads from execution steps and verify integrity before running.',
-                        )
-                    )
+                    findings.append(Finding('lobster-remote-shell-pipe', 'high', path, idx, 'Lobster command pipes a remote download directly into a shell.', stripped, 'Split remote downloads from execution steps and verify integrity before running.'))
                 if '${' in command or re.search(r'\$[A-Za-z_][A-Za-z0-9_]*', command):
-                    findings.append(
-                        Finding(
-                            rule_id='lobster-unrestricted-expansion',
-                            severity='medium',
-                            path=path,
-                            line_number=idx,
-                            message='Lobster command contains direct variable expansion that deserves review.',
-                            excerpt=stripped,
-                            remediation='Review variable expansion in command lines and prefer validated inputs or quoting for untrusted values.',
-                        )
-                    )
+                    findings.append(Finding('lobster-unrestricted-expansion', 'medium', path, idx, 'Lobster command contains direct variable expansion that deserves review.', stripped, 'Review variable expansion in command lines and prefer validated inputs or quoting for untrusted values.'))
     return findings
 
 
@@ -96,43 +64,13 @@ def _scan_jobs_json(root: Path) -> list[Finding]:
         excerpt = _job_excerpt(job)
         tools_allow = payload.get('toolsAllow')
         if not isinstance(tools_allow, list):
-            findings.append(
-                Finding(
-                    rule_id='cron-agentturn-missing-toolsallow',
-                    severity='high',
-                    path=path,
-                    line_number=idx,
-                    message='AgentTurn cron job is missing toolsAllow, which can lead to broader-than-intended tool access.',
-                    excerpt=excerpt,
-                    remediation='Set an explicit toolsAllow list for each agentTurn cron job.',
-                )
-            )
+            findings.append(Finding('cron-agentturn-missing-toolsallow', 'high', path, idx, 'AgentTurn cron job is missing toolsAllow, which can lead to broader-than-intended tool access.', excerpt, 'Set an explicit toolsAllow list for each agentTurn cron job.'))
         else:
             unexpected = [tool for tool in tools_allow if isinstance(tool, str) and tool not in TOOLS_ALLOW_SAFE]
             if unexpected:
-                findings.append(
-                    Finding(
-                        rule_id='cron-agentturn-unreviewed-tools',
-                        severity='medium',
-                        path=path,
-                        line_number=idx,
-                        message='AgentTurn cron job allows tools outside the reviewed default set.',
-                        excerpt=excerpt,
-                        remediation='Review toolsAllow and keep only the minimum tools needed for the scheduled turn.',
-                    )
-                )
+                findings.append(Finding('cron-agentturn-unreviewed-tools', 'medium', path, idx, 'AgentTurn cron job allows tools outside the reviewed default set.', excerpt, 'Review toolsAllow and keep only the minimum tools needed for the scheduled turn.'))
         if 'thinking' not in payload:
-            findings.append(
-                Finding(
-                    rule_id='cron-agentturn-missing-thinking-mode',
-                    severity='medium',
-                    path=path,
-                    line_number=idx,
-                    message='AgentTurn cron job does not pin a thinking mode, which can cause cost drift.',
-                    excerpt=excerpt,
-                    remediation='Set thinking explicitly for scheduled jobs so model cost/behavior is predictable.',
-                )
-            )
+            findings.append(Finding('cron-agentturn-missing-thinking-mode', 'medium', path, idx, 'AgentTurn cron job does not pin a thinking mode, which can cause cost drift.', excerpt, 'Set thinking explicitly for scheduled jobs so model cost/behavior is predictable.'))
         message = payload.get('message')
         if isinstance(message, str):
             findings.extend(_scan_agentturn_prompt(path, idx, excerpt, message))
@@ -142,29 +80,9 @@ def _scan_jobs_json(root: Path) -> list[Finding]:
 def _scan_agentturn_prompt(path: Path, idx: int, excerpt: str, message: str) -> list[Finding]:
     findings: list[Finding] = []
     if THREAD_CREATE_CHANNEL_RE.search(message) and not THREAD_CREATE_TARGET_RE.search(message):
-        findings.append(
-            Finding(
-                rule_id='cron-thread-create-channel-instead-of-target',
-                severity='high',
-                path=path,
-                line_number=idx,
-                message='AgentTurn prompt teaches thread-create with `channel` instead of `target`, which can break posting.',
-                excerpt=excerpt,
-                remediation='For message tool thread creation, use `target` for the parent channel id instead of `channel`.',
-            )
-        )
+        findings.append(Finding('cron-thread-create-channel-instead-of-target', 'high', path, idx, 'AgentTurn prompt teaches thread-create with `channel` instead of `target`, which can break posting.', excerpt, 'For message tool thread creation, use `target` for the parent channel id instead of `channel`.'))
     if WORLD_NEWS_RE.search(message) and OMIT_WORLD_NEWS_RE.search(message):
-        findings.append(
-            Finding(
-                rule_id='cron-omits-required-world-news',
-                severity='medium',
-                path=path,
-                line_number=idx,
-                message='AgentTurn prompt allows BREAKING WORLD NEWS to be omitted even though the section is part of the required brief shape.',
-                excerpt=excerpt,
-                remediation='Keep required user-facing sections mandatory and add a fallback source instead of omitting them.',
-            )
-        )
+        findings.append(Finding('cron-omits-required-world-news', 'medium', path, idx, 'AgentTurn prompt allows BREAKING WORLD NEWS to be omitted even though the section is part of the required brief shape.', excerpt, 'Keep required user-facing sections mandatory and add a fallback source instead of omitting them.'))
     return findings
 
 
@@ -177,19 +95,11 @@ def _scan_openclaw_json(root: Path) -> list[Finding]:
     except (UnicodeDecodeError, json.JSONDecodeError):
         return []
     findings: list[Finding] = []
+    if not isinstance(data, dict):
+        return findings
     for key in data:
-        if key not in OPENCLAW_ALLOWED_TOP_LEVEL_KEYS:
-            findings.append(
-                Finding(
-                    rule_id='openclaw-orphan-top-level-key',
-                    severity='high',
-                    path=path,
-                    line_number=1,
-                    message='openclaw.json contains an unexpected top-level key that may indicate drift or a bad write path.',
-                    excerpt=f'{key}=...',
-                    remediation='Validate top-level keys in openclaw.json and remove orphan entries or move them to the correct nested section.',
-                )
-            )
+        if isinstance(key, str) and '.' in key:
+            findings.append(Finding('openclaw-orphan-top-level-key', 'high', path, 1, 'openclaw.json contains a dotted top-level key that may indicate drift or a bad write path.', f'{key}=...', 'Top-level keys should be objects like `agents`; move dotted keys into the proper nested structure.'))
     return findings
 
 

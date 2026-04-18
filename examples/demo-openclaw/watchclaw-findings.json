@@ -42,9 +42,9 @@
       "severity": "high",
       "path": "openclaw.json",
       "line_number": 1,
-      "message": "openclaw.json contains an unexpected top-level key that may indicate drift or a bad write path.",
+      "message": "openclaw.json contains a dotted top-level key that may indicate drift or a bad write path.",
       "excerpt": "agents.main=...",
-      "remediation": "Validate top-level keys in openclaw.json and remove orphan entries or move them to the correct nested section."
+      "remediation": "Top-level keys should be objects like `agents`; move dotted keys into the proper nested structure."
     },
     {
       "rule_id": "lobster-remote-shell-pipe",

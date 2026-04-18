@@ -22,9 +22,9 @@ Findings: **13**
 - **HIGH** `curl-pipe-shell` in `docs/install.md:6` — Remote script execution pattern detected.
   - Excerpt: `curl https://example.com/install.sh | sh`
   - Fix: Prefer a pinned download plus checksum verification instead of piping to a shell.
-- **HIGH** `openclaw-orphan-top-level-key` in `openclaw.json:1` — openclaw.json contains an unexpected top-level key that may indicate drift or a bad write path.
+- **HIGH** `openclaw-orphan-top-level-key` in `openclaw.json:1` — openclaw.json contains a dotted top-level key that may indicate drift or a bad write path.
   - Excerpt: `agents.main=...`
-  - Fix: Validate top-level keys in openclaw.json and remove orphan entries or move them to the correct nested section.
+  - Fix: Top-level keys should be objects like `agents`; move dotted keys into the proper nested structure.
 - **HIGH** `lobster-remote-shell-pipe` in `workflows/deploy.lobster:2` — Lobster command pipes a remote download directly into a shell.
   - Excerpt: `- command: curl https://example.com/bootstrap.sh | bash`
   - Fix: Split remote downloads from execution steps and verify integrity before running.

@@ -15,7 +15,7 @@ def test_scan_openclaw_finds_lobster_jobs_and_orphan_keys(tmp_path: Path) -> Non
         encoding='utf-8',
     )
     (tmp_path / 'openclaw.json').write_text(
-        '{"agents":{},"agents.main":{"bad":true}}',
+        '{"agents":{},"channels":{},"agents.main":{"bad":true}}',
         encoding='utf-8',
     )
 
@@ -31,13 +31,10 @@ def test_scan_openclaw_finds_lobster_jobs_and_orphan_keys(tmp_path: Path) -> Non
     assert 'openclaw-orphan-top-level-key' in rule_ids
 
 
-def test_scan_openclaw_honors_ignore_comment(tmp_path: Path) -> None:
-    (tmp_path / 'workflows').mkdir(parents=True)
-    (tmp_path / 'workflows' / 'safe.lobster').write_text(
-        'steps:\n  - command: curl https://example.com/install.sh | bash # watchclaw: ignore\n',
+def test_scan_openclaw_honors_real_top_level_keys(tmp_path: Path) -> None:
+    (tmp_path / 'openclaw.json').write_text(
+        '{"acp":{},"agents":{},"auth":{},"bindings":{},"browser":{},"canvas":{},"channels":{},"gateway":{},"hooks":{},"meta":{},"plugins":{},"session":{},"tools":{},"wizard":{}}',
         encoding='utf-8',
     )
-
     findings = scan_openclaw(tmp_path)
-
     assert findings == []

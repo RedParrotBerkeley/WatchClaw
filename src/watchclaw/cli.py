@@ -7,22 +7,13 @@ from watchclaw.checks.docs import scan_docs
 from watchclaw.checks.openclaw import scan_openclaw
 from watchclaw.checks.workflows import scan_workflows
 from watchclaw.detector import detect_repo_root
-from watchclaw.reporting import (
-    render_discord_alert,
-    render_github_summary,
-    render_json,
-    render_markdown,
-)
+from watchclaw.reporting import render_discord_alert, render_github_summary, render_json, render_markdown
 from watchclaw.usage import scan_usage
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        prog='watchclaw',
-        description='Security and usage watchdog for OpenClaw.',
-    )
+    parser = argparse.ArgumentParser(prog='watchclaw', description='Security and usage watchdog for OpenClaw.')
     subparsers = parser.add_subparsers(dest='command', required=True)
-
     scan = subparsers.add_parser('scan', help='Scan an OpenClaw-style tree.')
     scan.add_argument('target', nargs='?', default='.', help='Folder to scan. Defaults to current directory.')
     scan.add_argument('--markdown-out', help='Optional path for a markdown report.')
@@ -36,8 +27,7 @@ def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
     if args.command == 'scan':
-        target = Path(args.target)
-        root = detect_repo_root(target)
+        root = detect_repo_root(Path(args.target))
         findings = []
         findings.extend(scan_docs(root))
         findings.extend(scan_workflows(root))
@@ -57,7 +47,7 @@ def main() -> int:
             Path(args.discord_out).write_text(discord_alert + '\n', encoding='utf-8')
         if args.json_out:
             Path(args.json_out).write_text(json_payload, encoding='utf-8')
-        return 1 if findings else 0
+        return 1 if any(f.severity == 'high' for f in findings) else 0
     parser.error('unknown command')
     return 2
 
