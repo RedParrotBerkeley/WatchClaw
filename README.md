@@ -150,7 +150,7 @@ python3 ./scripts/render_demo_screenshot.py
 
 ### Demo screenshot
 
-![WatchClaw terminal demo](assets/demo-terminal-live.png)
+![WatchClaw terminal demo: 13 findings (6 HIGH, 7 MEDIUM) from scanning the bundled demo OpenClaw fixture — including cron-thread-create-channel-instead-of-target, openclaw-orphan-top-level-key, and lobster-remote-shell-pipe](assets/demo-terminal.png)
 
 ### Demo outputs in this repo
 
@@ -380,15 +380,37 @@ This bootstrap includes:
 
 ## Current checks
 
-WatchClaw currently ships with high-signal starter checks for:
+WatchClaw currently ships with high-signal checks across four surfaces:
 
-- risky docs shell snippets (`curl | sh`, `wget | bash`)
-- suspicious links in docs (`javascript:`, raw IP links, shortened links)
-- live-looking token examples in docs
+**Docs**
+
+- risky shell snippets (`curl | sh`, `wget | bash`)
+- suspicious links (`javascript:`, raw IP links, shortened links)
+- live-looking token examples
+
+**CI / workflow files**
+
 - unsafe GitHub-context interpolation in executable workflow content
-- remote-script execution patterns in workflow files
-- repeated rate-limit events in session/usage logs
-- oversized token turns in usage/session logs
+- remote-script execution patterns
+
+**OpenClaw-native**
+
+- `.lobster` commands piping remote downloads into a shell
+- `.lobster` commands with unreviewed variable expansion
+- `cron/jobs.json` agentTurn jobs missing `toolsAllow`
+- `cron/jobs.json` agentTurn jobs that allow unreviewed tools
+- `cron/jobs.json` agentTurn jobs that don't pin a `thinking` mode
+- `cron/jobs.json` prompts teaching `thread-create` with `channel` instead of `target`
+- `cron/jobs.json` prompts that allow required user-facing sections (e.g. `BREAKING WORLD NEWS`) to be silently omitted
+- `openclaw.json` orphan top-level keys that hint at config drift or a bad write path
+
+**Usage / session logs**
+
+- repeated rate-limit events
+- oversized single-turn token usage
+- context-overflow / compaction pressure markers
+
+`.lobster` findings can be suppressed with a `# watchclaw: ignore` comment on the same line. Suppression comments for docs/workflows/usage rules are on the roadmap.
 
 ## Output formats
 
