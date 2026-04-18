@@ -6,6 +6,7 @@ from pathlib import Path
 from watchclaw.models import Finding
 
 DOC_EXTENSIONS = {".md", ".mdx", ".txt"}
+EXCLUDED_NAME_PREFIXES = ("watchclaw-report", "watchclaw-summary", "watchclaw-findings", "watchclaw-discord")
 TOKEN_PATTERNS = (
     ("github-pat", re.compile(r"\bghp_[A-Za-z0-9]{16,}\b")),
     ("openai-key", re.compile(r"\bsk-[A-Za-z0-9]{20,}\b")),
@@ -40,6 +41,8 @@ def scan_docs(root: Path) -> list[Finding]:
     findings: list[Finding] = []
     for path in root.rglob("*"):
         if not path.is_file() or path.suffix.lower() not in DOC_EXTENSIONS:
+            continue
+        if path.name.startswith(EXCLUDED_NAME_PREFIXES):
             continue
         findings.extend(_scan_doc(path))
     return findings

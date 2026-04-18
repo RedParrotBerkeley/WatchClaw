@@ -18,6 +18,12 @@ It is built for maintainers and power users running OpenClaw in real environment
 
 ## Quick start
 
+### Refresh the demo in one command
+
+```bash
+./scripts/demo.sh
+```
+
 ### Run against the current repo
 
 ```bash
@@ -226,3 +232,31 @@ A single scan can emit:
 - GitHub-ready markdown summary
 - compact Discord alert text
 - JSON findings payload
+
+
+## Soft-launch checklist
+
+WatchClaw is now in a good state for a soft launch when you want to start attracting early contributors.
+
+Recommended first-share ingredients:
+
+- the repo link
+- the one-line positioning
+- the demo summary screenshot or pasted output
+- one sentence about the drag-and-drop OpenClaw folder model
+- an invitation for rule ideas and false-positive reports
+
+## Suggested first post copy
+
+> Built a small OpenClaw-native watchdog called **WatchClaw**.  
+> It scans docs/workflows for risky patterns and flags usage anomalies before they turn into incidents.  
+> Portable enough to drop into an OpenClaw folder and run locally.  
+> Early but real — feedback, rule ideas, and false-positive reports welcome.  
+> https://github.com/RedParrotBerkeley/WatchClaw
+
+## Suggested short version
+
+> WatchClaw: security + usage watchdog for OpenClaw.  
+> Scans docs, workflows, and session logs.  
+> GitHub + Discord-ready outputs.  
+> https://github.com/RedParrotBerkeley/WatchClaw
