@@ -99,7 +99,7 @@ PYTHONPATH=src python3 -m watchclaw.cli scan examples/demo-openclaw \
 ```md
 ## WatchClaw Summary
 
-- scanned root: `/private/tmp/watchclaw/examples/demo-openclaw`
+- scanned root: `examples/demo-openclaw`
 - total findings: **5**
 - high: **2**
 - medium: **3**
