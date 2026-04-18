@@ -224,6 +224,7 @@ The first version should stay tight:
 
 Short term:
 
+- preserve drag-and-drop portability as a core design constraint while the tool grows
 - add a `.lobster` workflow entrypoint so WatchClaw can run in a cost-efficient OpenClaw-native automation path
 - define the core signal model
 - ship docs/workflow checks
@@ -240,6 +241,19 @@ Medium term:
 ## Status
 
 Portable starter implementation is live. Soft-launch shaping in progress.
+
+## Design principle: drag-and-drop first
+
+WatchClaw is intentionally being designed as a **drag-and-drop-first** tool.
+
+That means the default experience should stay simple:
+
+- drop the `watchclaw/` folder into an OpenClaw checkout
+- run it locally against the parent repo
+- get useful findings and outputs immediately
+
+This portability is not just a convenience feature — it is part of the product strategy.
+WatchClaw should feel easy to trial, easy to trust, and easy to wire into real OpenClaw workflows without forcing a heavyweight setup.
 
 ## Drag-and-drop OpenClaw mode
 
