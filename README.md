@@ -168,3 +168,24 @@ This bootstrap includes:
 - a first docs-safety rule for risky `curl|sh` / `wget|bash` style snippets
 - markdown report generation
 - tests proving the drag-and-drop scan model
+
+## Current checks
+
+WatchClaw currently ships with high-signal starter checks for:
+
+- risky docs shell snippets (`curl | sh`, `wget | bash`)
+- suspicious links in docs (`javascript:`, raw IP links, shortened links)
+- live-looking token examples in docs
+- unsafe GitHub-context interpolation in executable workflow content
+- remote-script execution patterns in workflow files
+- repeated rate-limit events in session/usage logs
+- oversized token turns in usage/session logs
+
+## Output formats
+
+A single scan can emit:
+
+- full markdown report
+- GitHub-ready markdown summary
+- compact Discord alert text
+- JSON findings payload
