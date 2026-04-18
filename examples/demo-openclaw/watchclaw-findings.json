@@ -1,0 +1,50 @@
+{
+  "root": "/private/tmp/watchclaw/examples/demo-openclaw",
+  "findings": [
+    {
+      "rule_id": "unsafe-workflow-interpolation",
+      "severity": "high",
+      "path": "/private/tmp/watchclaw/examples/demo-openclaw/.github/workflows/demo.yml",
+      "line_number": 7,
+      "message": "Potentially unsafe GitHub context interpolation in executable workflow content.",
+      "excerpt": "- run: echo \"${{ github.event.pull_request.title }}\" | bash",
+      "remediation": "Avoid interpolating untrusted GitHub metadata directly into shell commands; pass through validated env vars or strict quoting."
+    },
+    {
+      "rule_id": "curl-pipe-shell",
+      "severity": "high",
+      "path": "/private/tmp/watchclaw/examples/demo-openclaw/docs/install.md",
+      "line_number": 6,
+      "message": "Remote script execution pattern detected.",
+      "excerpt": "curl https://example.com/install.sh | sh",
+      "remediation": "Prefer a pinned download plus checksum verification instead of piping to a shell."
+    },
+    {
+      "rule_id": "high-token-turn",
+      "severity": "medium",
+      "path": "/private/tmp/watchclaw/examples/demo-openclaw/agents/main/sessions/demo.jsonl",
+      "line_number": 3,
+      "message": "Large single-turn token usage detected.",
+      "excerpt": "totalTokens=35000",
+      "remediation": "Trim carried context or move heavy reasoning into smaller delegated runs to reduce token pressure."
+    },
+    {
+      "rule_id": "repeated-rate-limit-events",
+      "severity": "medium",
+      "path": "/private/tmp/watchclaw/examples/demo-openclaw/agents/main/sessions/demo.jsonl",
+      "line_number": 3,
+      "message": "Repeated rate-limit events detected in usage/session logs.",
+      "excerpt": "multiple 429/rate-limit entries observed",
+      "remediation": "Investigate prompt/context growth, model choice, and retry policy before public-facing failures stack up."
+    },
+    {
+      "rule_id": "shortened-link",
+      "severity": "medium",
+      "path": "/private/tmp/watchclaw/examples/demo-openclaw/docs/install.md",
+      "line_number": 9,
+      "message": "Shortened link detected in documentation.",
+      "excerpt": "Docs mirror: https://bit.ly/watchclaw-demo",
+      "remediation": "Prefer explicit destination URLs so operators can inspect the domain before opening it."
+    }
+  ]
+}

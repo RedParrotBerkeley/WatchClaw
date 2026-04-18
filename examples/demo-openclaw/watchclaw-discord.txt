@@ -1,0 +1,1 @@
+⚠️ WatchClaw found 5 issue(s) in `demo-openclaw`: [HIGH] unsafe-workflow-interpolation at .github/workflows/demo.yml:7; [HIGH] curl-pipe-shell at docs/install.md:6; [MEDIUM] high-token-turn at agents/main/sessions/demo.jsonl:3 (+2 more)

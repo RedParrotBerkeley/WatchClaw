@@ -16,6 +16,43 @@ It is built for maintainers and power users running OpenClaw in real environment
 - repeated runtime failures
 - alert routing for high-severity events
 
+## Quick start
+
+### Run against the current repo
+
+```bash
+PYTHONPATH=src python3 -m watchclaw.cli scan .
+```
+
+### Run from a vendored `watchclaw/` folder inside OpenClaw
+
+```bash
+PYTHONPATH=src python3 -m watchclaw.cli scan ..
+```
+
+### Emit all launch-ready outputs
+
+```bash
+PYTHONPATH=src python3 -m watchclaw.cli scan examples/demo-openclaw \
+  --markdown-out examples/demo-openclaw/watchclaw-report.md \
+  --github-out examples/demo-openclaw/watchclaw-summary.md \
+  --discord-out examples/demo-openclaw/watchclaw-discord.txt \
+  --json-out examples/demo-openclaw/watchclaw-findings.json
+```
+
+See also: `watchclaw.toml.example` and `examples/demo-openclaw/`.
+
+## Demo outputs
+
+The repo now includes a tiny OpenClaw-style demo tree with pre-generated outputs:
+
+- `examples/demo-openclaw/watchclaw-report.md`
+- `examples/demo-openclaw/watchclaw-summary.md`
+- `examples/demo-openclaw/watchclaw-discord.txt`
+- `examples/demo-openclaw/watchclaw-findings.json`
+
+That gives new visitors a fast proof-of-value without making them guess what the tool emits.
+
 ## Why WatchClaw exists
 
 OpenClaw already has strong building blocks for workflows, watchdog behavior, and security-minded automation. What is still missing is a focused tool that treats **docs safety**, **workflow safety**, and **usage monitoring** as one operational surface.
@@ -135,7 +172,7 @@ Medium term:
 
 ## Status
 
-Positioning repo bootstrap. Implementation to follow.
+Portable starter implementation is live. Soft-launch shaping in progress.
 
 ## Drag-and-drop OpenClaw mode
 

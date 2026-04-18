@@ -1,0 +1,15 @@
+# WatchClaw example config
+# v1 is intentionally simple and filesystem-first.
+
+[scan]
+root = ".."
+
+[outputs]
+markdown = "./artifacts/watchclaw-report.md"
+github = "./artifacts/watchclaw-summary.md"
+discord = "./artifacts/watchclaw-discord.txt"
+json = "./artifacts/watchclaw-findings.json"
+
+[thresholds]
+fail_on_high = true
+fail_on_medium = false
