@@ -2,8 +2,6 @@
 
 **Drag-and-drop scanner for OpenClaw repos.**
 
-![WatchClaw hero card](assets/watchclaw-hero-card-v4.png)
-
 **Drop `watchclaw/` into an OpenClaw tree, run one command, and catch risky docs, unsafe workflow patterns, and token-burn clues in one scan.**
 
 WatchClaw is an OpenClaw-native scanner focused on two high-value jobs:
@@ -147,11 +145,12 @@ That gives new visitors a fast proof-of-value without making them guess what the
 
 ```bash
 ./scripts/demo.sh
+python3 ./scripts/render_demo_screenshot.py
 ```
 
 ### Demo screenshot
 
-![WatchClaw terminal demo](assets/demo-terminal-v5.png)
+![WatchClaw terminal demo](assets/demo-terminal-live.png)
 
 ### Demo outputs in this repo
 
@@ -159,6 +158,14 @@ That gives new visitors a fast proof-of-value without making them guess what the
 - `examples/demo-openclaw/watchclaw-summary.md`
 - `examples/demo-openclaw/watchclaw-discord.txt`
 - `examples/demo-openclaw/watchclaw-findings.json`
+
+### Screenshot generator
+
+```bash
+python3 ./scripts/render_demo_screenshot.py
+```
+
+That script rebuilds the README screenshot from the current demo findings so it stays in sync when rules change.
 
 ### Exact demo command
 
