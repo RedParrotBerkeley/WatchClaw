@@ -1,3 +1,3 @@
 {"error":"rate limit reached","usage":{"totalTokens":1200}}
 {"error":"rate limit reached","usage":{"totalTokens":1500}}
-{"error":"rate limit reached","usage":{"totalTokens":35000}}
+{"error":{"message":"rate limit reached","code":429},"message":"compaction-diag triggered","usage":{"totalTokens":35000}}

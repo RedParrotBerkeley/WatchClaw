@@ -1,1 +1,6 @@
-{}
+{
+  "agents": {},
+  "agents.main": {
+    "bad": true
+  }
+}

@@ -44,10 +44,12 @@ That is the main product move: **copy it in, run it, get findings immediately.**
 The bundled demo is intentionally small and immediately legible. One scan flags:
 
 - a workflow that pipes untrusted GitHub metadata into `bash`
+- a `.lobster` pipeline that curls straight into `bash`
 - a docs snippet that teaches `curl ... | sh`
 - a shortened link in docs that hides the destination
-- a large single-turn token spike in session logs
-- repeated rate-limit churn in usage logs
+- an `openclaw.json` orphan key that hints at a bad write path
+- a cron job with missing `toolsAllow` and no thinking pin
+- a large single-turn token spike plus compaction pressure in session logs
 
 That gives strangers a fast answer to the only question that really matters on first visit: **what badness does this catch right away?**
 
@@ -92,7 +94,7 @@ PYTHONPATH=src python3 -m watchclaw.cli scan examples/demo-openclaw \
   --json-out examples/demo-openclaw/watchclaw-findings.json
 ```
 
-See also: `watchclaw.toml.example` and `examples/demo-openclaw/`.
+See also: `examples/demo-openclaw/`.
 
 ## Demo outputs
 
@@ -148,23 +150,25 @@ This is the proof-of-value snapshot a stranger should be able to understand in a
 ## WatchClaw Summary
 
 - scanned root: `examples/demo-openclaw`
-- total findings: **5**
-- high: **2**
-- medium: **3**
+- total findings: **11**
+- high: **5**
+- medium: **6**
 
 ### Top findings
 
 - `unsafe-workflow-interpolation` in `.github/workflows/demo.yml:7` — Potentially unsafe GitHub context interpolation in executable workflow content.
 - `curl-pipe-shell` in `docs/install.md:6` — Remote script execution pattern detected.
+- `lobster-remote-shell-pipe` in `workflows/deploy.lobster:2` — Lobster command pipes a remote download directly into a shell.
+- `openclaw-orphan-top-level-key` in `openclaw.json:1` — openclaw.json contains an unexpected top-level key that may indicate drift or a bad write path.
+- `cron-agentturn-missing-toolsallow` in `cron/jobs.json:1` — AgentTurn cron job is missing toolsAllow, which can lead to broader-than-intended tool access.
 - `high-token-turn` in `agents/main/sessions/demo.jsonl:3` — Large single-turn token usage detected.
-- `repeated-rate-limit-events` in `agents/main/sessions/demo.jsonl:3` — Repeated rate-limit events detected in usage/session logs.
-- `shortened-link` in `docs/install.md:9` — Shortened link detected in documentation.
+- `context-compaction-pressure` in `agents/main/sessions/demo.jsonl:3` — Context overflow or compaction diagnostics appeared in session logs.
 ```
 
 ### Demo Discord alert output
 
 ```text
-⚠️ WatchClaw found 5 issue(s) in `demo-openclaw`: [HIGH] unsafe-workflow-interpolation at .github/workflows/demo.yml:7; [HIGH] curl-pipe-shell at docs/install.md:6; [MEDIUM] high-token-turn at agents/main/sessions/demo.jsonl:3 (+2 more)
+⚠️ WatchClaw found 11 issue(s) in `demo-openclaw`: [HIGH] unsafe-workflow-interpolation at .github/workflows/demo.yml:7; [HIGH] lobster-remote-shell-pipe at workflows/deploy.lobster:2; [HIGH] curl-pipe-shell at docs/install.md:6 (+8 more)
 ```
 
 ## Why WatchClaw exists

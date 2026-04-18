@@ -1,0 +1,12 @@
+{
+  "jobs": [
+    {
+      "id": "demo-morning-brief",
+      "name": "Morning briefing",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "demo job without tool restrictions or thinking pin"
+      }
+    }
+  ]
+}
