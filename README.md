@@ -2,7 +2,7 @@
 
 **Drag-and-drop scanner for OpenClaw repos.**
 
-![WatchClaw hero card](assets/watchclaw-hero-card.png)
+![WatchClaw hero card](assets/watchclaw-hero-card-v4.png)
 
 **Drop `watchclaw/` into an OpenClaw tree, run one command, and catch risky docs, unsafe workflow patterns, and token-burn clues in one scan.**
 
@@ -155,7 +155,7 @@ That gives new visitors a fast proof-of-value without making them guess what the
 
 **Terminal scan run**
 
-![WatchClaw terminal demo](assets/demo-terminal-v4.png)
+![WatchClaw terminal demo](assets/demo-terminal-v5.png)
 
 ### Demo outputs in this repo
 
