@@ -53,6 +53,26 @@ The bundled demo is intentionally small and immediately legible. One scan flags:
 
 That gives strangers a fast answer to the only question that really matters on first visit: **what badness does this catch right away?**
 
+## Why this is more than a generic scanner
+
+WatchClaw now catches OpenClaw-native failure shapes that generic repo scanners usually miss, including:
+
+- `.lobster` commands that pull remote code straight into a shell
+- `cron/jobs.json` scheduled agent turns missing `toolsAllow`
+- `cron/jobs.json` scheduled agent turns with no explicit `thinking` mode
+- orphan top-level keys in `openclaw.json` that hint at a bad write path or config drift
+- session logs showing compaction/context-pressure markers instead of just generic token counts
+
+That is the real wedge: **drop it into an OpenClaw tree and it catches the kinds of mistakes we actually debug in production.**
+
+## Example: the kind of bug this should catch
+
+One of the easiest ways to burn time in OpenClaw is a scheduled job that *looks* normal but is missing the exact guardrails that keep it cheap and reliable.
+
+The demo now includes a `cron/jobs.json` example where an `agentTurn` job is missing `toolsAllow` and has no pinned `thinking` mode. WatchClaw flags both immediately.
+
+That is the kind of mistake that turns into noisy incidents, weird behavior, or unnecessary spend if nobody notices early.
+
 ## Why someone would actually use it
 
 WatchClaw is for the moment when an OpenClaw repo looks mostly fine, but you still want a quick pass over the surfaces that cause real operator pain:
@@ -144,7 +164,7 @@ PYTHONPATH=src python3 -m watchclaw.cli scan examples/demo-openclaw \
 
 ### Demo summary output
 
-This is the proof-of-value snapshot a stranger should be able to understand in a few seconds:
+This is the proof-of-value snapshot a stranger should be able to understand in a few seconds. Notice that the top findings are not just generic security lint — they include OpenClaw-native workflow/config failures:
 
 ```md
 ## WatchClaw Summary
@@ -192,10 +212,11 @@ WatchClaw is not a heavy setup story.
 
 WatchClaw is not a full incident-management platform.
 
-WatchClaw is a sharp, OpenClaw-specific watchdog that helps maintainers catch:
+WatchClaw is a sharp, OpenClaw-specific scanner that helps maintainers catch:
 
 - **docs security problems**
 - **workflow security problems**
+- **OpenClaw-specific config and scheduling mistakes**
 - **usage and spend anomalies**
 - **high-signal operational regressions**
 
