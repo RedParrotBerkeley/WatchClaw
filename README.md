@@ -2,6 +2,8 @@
 
 **Drag-and-drop scanner for OpenClaw repos.**
 
+![WatchClaw hero card](assets/watchclaw-hero-card.png)
+
 **Drop `watchclaw/` into an OpenClaw tree, run one command, and catch risky docs, unsafe workflow patterns, and token-burn clues in one scan.**
 
 WatchClaw is an OpenClaw-native scanner focused on two high-value jobs:
@@ -125,6 +127,12 @@ PYTHONPATH=src python3 -m watchclaw.cli scan examples/demo-openclaw \
 ```
 
 See also: `examples/demo-openclaw/`.
+
+## Brand mark
+
+WatchClaw now carries a small monocle-crab mark as a signature accent — useful for README identity, social cards, and launch art without turning the whole repo into mascot wallpaper.
+
+![WatchClaw crab mark](assets/watchclaw-crab-monocle.jpg)
 
 ## Demo outputs
 
