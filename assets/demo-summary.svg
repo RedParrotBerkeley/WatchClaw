@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360" role="img" aria-label="WatchClaw GitHub summary demo">
+  <rect width="980" height="360" fill="#0d1117" rx="16"/>
+  <rect x="20" y="20" width="940" height="320" fill="#161b22" stroke="#30363d" rx="12"/>
+  <text x="42" y="58" fill="#e6edf3" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24" font-weight="700">WatchClaw demo summary</text>
+  <text x="42" y="96" fill="#7ee787" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20">## WatchClaw Summary</text>
+  <text x="42" y="130" fill="#c9d1d9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">- scanned root: examples/demo-openclaw</text>
+  <text x="42" y="158" fill="#c9d1d9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">- total findings: 5</text>
+  <text x="42" y="186" fill="#ff7b72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">- high: 2</text>
+  <text x="42" y="214" fill="#d29922" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">- medium: 3</text>
+  <text x="42" y="252" fill="#79c0ff" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">- unsafe-workflow-interpolation in .github/workflows/demo.yml:7</text>
+  <text x="42" y="280" fill="#79c0ff" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">- curl-pipe-shell in docs/install.md:6</text>
+  <text x="42" y="308" fill="#79c0ff" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">- high-token-turn / repeated-rate-limit-events / shortened-link</text>
+</svg>

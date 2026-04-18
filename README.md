@@ -59,6 +59,66 @@ The repo now includes a tiny OpenClaw-style demo tree with pre-generated outputs
 
 That gives new visitors a fast proof-of-value without making them guess what the tool emits.
 
+## Demo
+
+### One-command demo refresh
+
+```bash
+./scripts/demo.sh
+```
+
+### Demo screenshots
+
+**GitHub-style summary**
+
+![WatchClaw demo summary](assets/demo-summary.svg)
+
+**Terminal scan run**
+
+![WatchClaw terminal demo](assets/demo-terminal.svg)
+
+### Demo outputs in this repo
+
+- `examples/demo-openclaw/watchclaw-report.md`
+- `examples/demo-openclaw/watchclaw-summary.md`
+- `examples/demo-openclaw/watchclaw-discord.txt`
+- `examples/demo-openclaw/watchclaw-findings.json`
+
+### Exact demo command
+
+```bash
+PYTHONPATH=src python3 -m watchclaw.cli scan examples/demo-openclaw \
+  --markdown-out examples/demo-openclaw/watchclaw-report.md \
+  --github-out examples/demo-openclaw/watchclaw-summary.md \
+  --discord-out examples/demo-openclaw/watchclaw-discord.txt \
+  --json-out examples/demo-openclaw/watchclaw-findings.json
+```
+
+### Demo summary output
+
+```md
+## WatchClaw Summary
+
+- scanned root: `/private/tmp/watchclaw/examples/demo-openclaw`
+- total findings: **5**
+- high: **2**
+- medium: **3**
+
+### Top findings
+
+- `unsafe-workflow-interpolation` in `.github/workflows/demo.yml:7` — Potentially unsafe GitHub context interpolation in executable workflow content.
+- `curl-pipe-shell` in `docs/install.md:6` — Remote script execution pattern detected.
+- `high-token-turn` in `agents/main/sessions/demo.jsonl:3` — Large single-turn token usage detected.
+- `repeated-rate-limit-events` in `agents/main/sessions/demo.jsonl:3` — Repeated rate-limit events detected in usage/session logs.
+- `shortened-link` in `docs/install.md:9` — Shortened link detected in documentation.
+```
+
+### Demo Discord alert output
+
+```text
+⚠️ WatchClaw found 5 issue(s) in `demo-openclaw`: [HIGH] unsafe-workflow-interpolation at .github/workflows/demo.yml:7; [HIGH] curl-pipe-shell at docs/install.md:6; [MEDIUM] high-token-turn at agents/main/sessions/demo.jsonl:3 (+2 more)
+```
+
 ## Why WatchClaw exists
 
 OpenClaw already has strong building blocks for workflows, watchdog behavior, and security-minded automation. What is still missing is a focused tool that treats **docs safety**, **workflow safety**, and **usage monitoring** as one operational surface.
@@ -232,31 +292,3 @@ A single scan can emit:
 - GitHub-ready markdown summary
 - compact Discord alert text
 - JSON findings payload
-
-
-## Soft-launch checklist
-
-WatchClaw is now in a good state for a soft launch when you want to start attracting early contributors.
-
-Recommended first-share ingredients:
-
-- the repo link
-- the one-line positioning
-- the demo summary screenshot or pasted output
-- one sentence about the drag-and-drop OpenClaw folder model
-- an invitation for rule ideas and false-positive reports
-
-## Suggested first post copy
-
-> Built a small OpenClaw-native watchdog called **WatchClaw**.  
-> It scans docs/workflows for risky patterns and flags usage anomalies before they turn into incidents.  
-> Portable enough to drop into an OpenClaw folder and run locally.  
-> Early but real — feedback, rule ideas, and false-positive reports welcome.  
-> https://github.com/RedParrotBerkeley/WatchClaw
-
-## Suggested short version
-
-> WatchClaw: security + usage watchdog for OpenClaw.  
-> Scans docs, workflows, and session logs.  
-> GitHub + Discord-ready outputs.  
-> https://github.com/RedParrotBerkeley/WatchClaw
