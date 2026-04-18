@@ -128,12 +128,6 @@ PYTHONPATH=src python3 -m watchclaw.cli scan examples/demo-openclaw \
 
 See also: `examples/demo-openclaw/`.
 
-## Brand mark
-
-WatchClaw now carries a small monocle-crab mark as a signature accent — useful for README identity, social cards, and launch art without turning the whole repo into mascot wallpaper.
-
-![WatchClaw crab mark](assets/watchclaw-crab-monocle.jpg)
-
 ## Demo outputs
 
 The repo includes a tiny OpenClaw-style demo tree with pre-generated outputs so visitors can see the result before installing anything:
@@ -155,13 +149,13 @@ That gives new visitors a fast proof-of-value without making them guess what the
 
 ### Demo screenshots
 
-**GitHub-style summary**
+**Hero card**
 
-![WatchClaw demo summary](assets/demo-summary-v3.png)
+![WatchClaw hero card](assets/watchclaw-hero-card-v2.png)
 
 **Terminal scan run**
 
-![WatchClaw terminal demo](assets/demo-terminal-v3.png)
+![WatchClaw terminal demo](assets/demo-terminal-v4.png)
 
 ### Demo outputs in this repo
 
