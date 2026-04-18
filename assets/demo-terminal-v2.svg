@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520" role="img" aria-label="WatchClaw terminal demo">
+  <rect width="980" height="520" fill="#0d1117" rx="16"/>
+  <rect x="18" y="18" width="944" height="484" fill="#161b22" stroke="#30363d" rx="12"/>
+  <circle cx="48" cy="42" r="8" fill="#ff5f56"/><circle cx="72" cy="42" r="8" fill="#ffbd2e"/><circle cx="96" cy="42" r="8" fill="#27c93f"/>
+  <text x="122" y="48" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">./scripts/demo.sh</text>
+  <text x="42" y="88" fill="#7ee787" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">__        ___   _____ ____ _   _  ____ _        _ __      __</text>
+  <text x="42" y="110" fill="#7ee787" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">\ \      / / | |_   _/ ___| | | |/ ___| |      / \\ \    / /</text>
+  <text x="42" y="132" fill="#7ee787" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18"> \ \ /\ / /| |   | || |   | |_| | |   | |     / _ \\ \  / / </text>
+  <text x="42" y="154" fill="#7ee787" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">  \ V  V / | |___| || |___|  _  | |___| |___ / ___ \\ \/ /  </text>
+  <text x="42" y="176" fill="#7ee787" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">   \_/\_/  |_____|_| \____|_| |_|\____|_____/_/   \_\\__/   </text>
+  <text x="42" y="206" fill="#79c0ff" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="17">OpenClaw-native scanner • drag-and-drop repo scan • caught before production</text>
+  <rect x="42" y="224" width="860" height="34" rx="8" fill="#2d1117" stroke="#f85149"/>
+  <text x="58" y="246" fill="#ff7b72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16">HERO DEMO: morning-brief failure chain (wrong thread-create shape + missing world-news guardrail)</text>
+  <text x="42" y="286" fill="#c9d1d9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">Scanned root: examples/demo-openclaw</text>
+  <text x="42" y="314" fill="#c9d1d9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">Findings: 13  |  HIGH: 6  |  MEDIUM: 7</text>
+  <text x="42" y="352" fill="#ff7b72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">HIGH   cron-thread-create-channel-instead-of-target   cron/jobs.json:1</text>
+  <text x="42" y="380" fill="#ff7b72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">HIGH   cron-agentturn-missing-toolsallow            cron/jobs.json:1</text>
+  <text x="42" y="408" fill="#d29922" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">MEDIUM cron-omits-required-world-news              cron/jobs.json:1</text>
+  <text x="42" y="446" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16">Outputs refreshed: watchclaw-report.md · watchclaw-summary.md · watchclaw-discord.txt · watchclaw-findings.json</text>
+</svg>

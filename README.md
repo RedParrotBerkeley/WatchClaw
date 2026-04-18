@@ -149,11 +149,11 @@ That gives new visitors a fast proof-of-value without making them guess what the
 
 **GitHub-style summary**
 
-![WatchClaw demo summary](assets/demo-summary.svg)
+![WatchClaw demo summary](assets/demo-summary-v2.svg)
 
 **Terminal scan run**
 
-![WatchClaw terminal demo](assets/demo-terminal.svg)
+![WatchClaw terminal demo](assets/demo-terminal-v2.svg)
 
 ### Demo outputs in this repo
 
