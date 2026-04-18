@@ -224,6 +224,7 @@ The first version should stay tight:
 
 Short term:
 
+- add a `.lobster` workflow entrypoint so WatchClaw can run in a cost-efficient OpenClaw-native automation path
 - define the core signal model
 - ship docs/workflow checks
 - ship usage anomaly summaries
