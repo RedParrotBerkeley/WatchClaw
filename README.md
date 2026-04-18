@@ -34,8 +34,10 @@ Then run it from inside the vendored folder:
 
 ```bash
 cd watchclaw
-PYTHONPATH=src python3 -m watchclaw.cli scan ..
+./watchclaw.sh
 ```
+
+That wrapper just runs the same local scan (`PYTHONPATH=src python3 -m watchclaw.cli scan ..`) with less typing. No network shortcuts, no extra privilege, same local behavior.
 
 That is the main product move: **copy it in, run it, get findings immediately.**
 
@@ -96,11 +98,20 @@ It is not trying to replace an observability stack. It is trying to catch high-s
 PYTHONPATH=src python3 -m watchclaw.cli scan .
 ```
 
+### What `watchclaw.sh` does
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")"
+PYTHONPATH=src python3 -m watchclaw.cli scan .. "$@"
+```
+
 ### Run from a vendored `watchclaw/` folder inside OpenClaw
 
 ```bash
 cd watchclaw
-PYTHONPATH=src python3 -m watchclaw.cli scan ..
+./watchclaw.sh
 ```
 
 ### Emit all launch-ready outputs
