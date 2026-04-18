@@ -1,16 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" role="img" aria-label="WatchClaw terminal demo">
-  <rect width="980" height="430" fill="#0d1117" rx="16"/>
-  <rect x="18" y="18" width="944" height="394" fill="#161b22" stroke="#30363d" rx="12"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="460" viewBox="0 0 980 460" role="img" aria-label="WatchClaw terminal demo">
+  <rect width="980" height="460" fill="#0d1117" rx="16"/>
+  <rect x="18" y="18" width="944" height="424" fill="#161b22" stroke="#30363d" rx="12"/>
   <circle cx="48" cy="42" r="8" fill="#ff5f56"/><circle cx="72" cy="42" r="8" fill="#ffbd2e"/><circle cx="96" cy="42" r="8" fill="#27c93f"/>
   <text x="122" y="48" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">./scripts/demo.sh</text>
   <text x="42" y="86" fill="#a5d6ff" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18"># WatchClaw Report</text>
   <text x="42" y="116" fill="#c9d1d9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">Scanned root: examples/demo-openclaw</text>
-  <text x="42" y="146" fill="#c9d1d9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">Findings: 5</text>
-  <text x="42" y="176" fill="#ff7b72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">HIGH   unsafe-workflow-interpolation   .github/workflows/demo.yml:7</text>
-  <text x="42" y="206" fill="#ff7b72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">HIGH   curl-pipe-shell                docs/install.md:6</text>
-  <text x="42" y="236" fill="#d29922" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">MEDIUM high-token-turn                agents/main/sessions/demo.jsonl:3</text>
-  <text x="42" y="266" fill="#d29922" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">MEDIUM repeated-rate-limit-events     agents/main/sessions/demo.jsonl:3</text>
-  <text x="42" y="296" fill="#d29922" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">MEDIUM shortened-link                 docs/install.md:9</text>
-  <text x="42" y="346" fill="#7ee787" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">Outputs refreshed:</text>
-  <text x="42" y="374" fill="#c9d1d9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">watchclaw-report.md · watchclaw-summary.md · watchclaw-discord.txt · watchclaw-findings.json</text>
+  <text x="42" y="146" fill="#c9d1d9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">Findings: 13</text>
+  <text x="42" y="176" fill="#ff7b72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">HIGH   cron-thread-create-channel-instead-of-target   cron/jobs.json:1</text>
+  <text x="42" y="206" fill="#ff7b72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">HIGH   cron-agentturn-missing-toolsallow            cron/jobs.json:1</text>
+  <text x="42" y="236" fill="#d29922" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">MEDIUM cron-omits-required-world-news              cron/jobs.json:1</text>
+  <text x="42" y="266" fill="#ff7b72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">HIGH   openclaw-orphan-top-level-key               openclaw.json:1</text>
+  <text x="42" y="296" fill="#d29922" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">MEDIUM context-compaction-pressure                 agents/main/sessions/demo.jsonl:3</text>
+  <text x="42" y="346" fill="#7ee787" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">This demo mirrors the morning-brief failure chain:</text>
+  <text x="42" y="374" fill="#c9d1d9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="17">wrong thread-create shape, missing toolsAllow, world-news omission, config drift</text>
+  <text x="42" y="412" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16">Outputs refreshed: watchclaw-report.md · watchclaw-summary.md · watchclaw-discord.txt · watchclaw-findings.json</text>
 </svg>
