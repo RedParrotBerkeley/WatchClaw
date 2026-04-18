@@ -136,3 +136,35 @@ Medium term:
 ## Status
 
 Positioning repo bootstrap. Implementation to follow.
+
+## Drag-and-drop OpenClaw mode
+
+WatchClaw is intentionally designed to work as a portable folder inside an OpenClaw checkout.
+
+Example layout:
+
+```text
+openclaw/
+  docs/
+  scripts/
+  openclaw.json
+  watchclaw/
+```
+
+Then run it from inside the vendored folder:
+
+```bash
+python -m watchclaw scan ..
+```
+
+The scanner will try to detect the surrounding OpenClaw-style repo root automatically.
+
+## Starter implementation
+
+This bootstrap includes:
+
+- a minimal Python package layout
+- OpenClaw-root auto-detection
+- a first docs-safety rule for risky `curl|sh` / `wget|bash` style snippets
+- markdown report generation
+- tests proving the drag-and-drop scan model

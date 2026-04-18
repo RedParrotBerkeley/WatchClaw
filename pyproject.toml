@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "watchclaw"
+version = "0.1.0"
+description = "Security and usage watchdog for OpenClaw"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Mike" }]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "ruff>=0.11",
+]
+
+[project.scripts]
+watchclaw = "watchclaw.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/watchclaw"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
