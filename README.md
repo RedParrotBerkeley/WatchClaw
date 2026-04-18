@@ -1,10 +1,10 @@
 # WatchClaw
 
-**Security and usage watchdog for OpenClaw.**
+**Drag-and-drop scanner for OpenClaw repos.**
 
-**Drag it into an OpenClaw tree and catch risky docs, unsafe workflow patterns, and token-burn clues in one scan.**
+**Drop `watchclaw/` into an OpenClaw tree, run one command, and catch risky docs, unsafe workflow patterns, and token-burn clues in one scan.**
 
-WatchClaw is an OpenClaw-native watchdog focused on two high-value jobs:
+WatchClaw is an OpenClaw-native scanner focused on two high-value jobs:
 
 1. **catch risky docs/workflow issues before they spread**
 2. **surface usage, spend, and runtime anomalies before they become incidents**
@@ -17,6 +17,27 @@ It is built for maintainers and power users running OpenClaw in real environment
 - usage spikes and token burn
 - repeated runtime failures
 - alert routing for high-severity events
+
+## Drag-and-drop quick start
+
+If you want the fastest path to value, treat WatchClaw like a portable repo tool instead of a package install project:
+
+```text
+openclaw/
+  docs/
+  scripts/
+  openclaw.json
+  watchclaw/
+```
+
+Then run it from inside the vendored folder:
+
+```bash
+cd watchclaw
+PYTHONPATH=src python3 -m watchclaw.cli scan ..
+```
+
+That is the main product move: **copy it in, run it, get findings immediately.**
 
 ## What it catches in the demo
 
@@ -40,7 +61,7 @@ WatchClaw is for the moment when an OpenClaw repo looks mostly fine, but you sti
 
 It is not trying to replace an observability stack. It is trying to catch high-signal mistakes fast.
 
-## Quick start
+## More ways to run it
 
 ### Refresh the demo in one command
 
@@ -57,6 +78,7 @@ PYTHONPATH=src python3 -m watchclaw.cli scan .
 ### Run from a vendored `watchclaw/` folder inside OpenClaw
 
 ```bash
+cd watchclaw
 PYTHONPATH=src python3 -m watchclaw.cli scan ..
 ```
 
@@ -161,6 +183,8 @@ Instead of acting like a generic uptime checker, WatchClaw is meant to watch the
 ## Positioning
 
 WatchClaw is not a SIEM.
+
+WatchClaw is not a heavy setup story.
 
 WatchClaw is not a full incident-management platform.
 
