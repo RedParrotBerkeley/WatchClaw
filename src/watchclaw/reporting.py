@@ -7,12 +7,21 @@ from pathlib import Path
 from watchclaw.models import Finding
 
 
+def _display_root(root: Path) -> str:
+    try:
+        return str(root.relative_to(Path.cwd()))
+    except ValueError:
+        return root.name or str(root)
+
+
+
+
 def render_markdown(root: Path, findings: list[Finding]) -> str:
     counts = Counter(f.severity for f in findings)
     lines = [
         "# WatchClaw Report",
         "",
-        f"Scanned root: `{root}`",
+        f"Scanned root: `{_display_root(root)}`",
         f"Findings: **{len(findings)}**",
         "",
         "## Severity summary",
@@ -38,7 +47,7 @@ def render_github_summary(root: Path, findings: list[Finding]) -> str:
     lines = [
         "## WatchClaw Summary",
         "",
-        f"- scanned root: `{root}`",
+        f"- scanned root: `{_display_root(root)}`",
         f"- total findings: **{len(findings)}**",
         f"- high: **{len(high)}**",
         f"- medium: **{len(medium)}**",
@@ -75,12 +84,12 @@ def render_discord_alert(root: Path, findings: list[Finding], limit: int = 3) ->
 
 def render_json(root: Path, findings: list[Finding]) -> str:
     payload = {
-        "root": str(root),
+        "root": _display_root(root),
         "findings": [
             {
                 "rule_id": f.rule_id,
                 "severity": f.severity,
-                "path": str(f.path),
+                "path": str(f.path.relative_to(root) if f.path.is_relative_to(root) else f.path),
                 "line_number": f.line_number,
                 "message": f.message,
                 "excerpt": f.excerpt,

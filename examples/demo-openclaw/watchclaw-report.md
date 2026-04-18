@@ -1,6 +1,6 @@
 # WatchClaw Report
 
-Scanned root: `/private/tmp/watchclaw/examples/demo-openclaw`
+Scanned root: `examples/demo-openclaw`
 Findings: **5**
 
 ## Severity summary

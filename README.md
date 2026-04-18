@@ -2,6 +2,8 @@
 
 **Security and usage watchdog for OpenClaw.**
 
+**Drag it into an OpenClaw tree and catch risky docs, unsafe workflow patterns, and token-burn clues in one scan.**
+
 WatchClaw is an OpenClaw-native watchdog focused on two high-value jobs:
 
 1. **catch risky docs/workflow issues before they spread**
@@ -15,6 +17,28 @@ It is built for maintainers and power users running OpenClaw in real environment
 - usage spikes and token burn
 - repeated runtime failures
 - alert routing for high-severity events
+
+## What it catches in the demo
+
+The bundled demo is intentionally small and immediately legible. One scan flags:
+
+- a workflow that pipes untrusted GitHub metadata into `bash`
+- a docs snippet that teaches `curl ... | sh`
+- a shortened link in docs that hides the destination
+- a large single-turn token spike in session logs
+- repeated rate-limit churn in usage logs
+
+That gives strangers a fast answer to the only question that really matters on first visit: **what badness does this catch right away?**
+
+## Why someone would actually use it
+
+WatchClaw is for the moment when an OpenClaw repo looks mostly fine, but you still want a quick pass over the surfaces that cause real operator pain:
+
+- docs people copy-paste without thinking
+- workflow files that can quietly become unsafe
+- usage/session logs that hint at cost or reliability trouble
+
+It is not trying to replace an observability stack. It is trying to catch high-signal mistakes fast.
 
 ## Quick start
 
@@ -50,7 +74,7 @@ See also: `watchclaw.toml.example` and `examples/demo-openclaw/`.
 
 ## Demo outputs
 
-The repo now includes a tiny OpenClaw-style demo tree with pre-generated outputs:
+The repo includes a tiny OpenClaw-style demo tree with pre-generated outputs so visitors can see the result before installing anything:
 
 - `examples/demo-openclaw/watchclaw-report.md`
 - `examples/demo-openclaw/watchclaw-summary.md`
@@ -95,6 +119,8 @@ PYTHONPATH=src python3 -m watchclaw.cli scan examples/demo-openclaw \
 ```
 
 ### Demo summary output
+
+This is the proof-of-value snapshot a stranger should be able to understand in a few seconds:
 
 ```md
 ## WatchClaw Summary

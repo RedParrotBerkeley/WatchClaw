@@ -1,10 +1,10 @@
 {
-  "root": "/private/tmp/watchclaw/examples/demo-openclaw",
+  "root": "examples/demo-openclaw",
   "findings": [
     {
       "rule_id": "unsafe-workflow-interpolation",
       "severity": "high",
-      "path": "/private/tmp/watchclaw/examples/demo-openclaw/.github/workflows/demo.yml",
+      "path": ".github/workflows/demo.yml",
       "line_number": 7,
       "message": "Potentially unsafe GitHub context interpolation in executable workflow content.",
       "excerpt": "- run: echo \"${{ github.event.pull_request.title }}\" | bash",
@@ -13,7 +13,7 @@
     {
       "rule_id": "curl-pipe-shell",
       "severity": "high",
-      "path": "/private/tmp/watchclaw/examples/demo-openclaw/docs/install.md",
+      "path": "docs/install.md",
       "line_number": 6,
       "message": "Remote script execution pattern detected.",
       "excerpt": "curl https://example.com/install.sh | sh",
@@ -22,7 +22,7 @@
     {
       "rule_id": "high-token-turn",
       "severity": "medium",
-      "path": "/private/tmp/watchclaw/examples/demo-openclaw/agents/main/sessions/demo.jsonl",
+      "path": "agents/main/sessions/demo.jsonl",
       "line_number": 3,
       "message": "Large single-turn token usage detected.",
       "excerpt": "totalTokens=35000",
@@ -31,7 +31,7 @@
     {
       "rule_id": "repeated-rate-limit-events",
       "severity": "medium",
-      "path": "/private/tmp/watchclaw/examples/demo-openclaw/agents/main/sessions/demo.jsonl",
+      "path": "agents/main/sessions/demo.jsonl",
       "line_number": 3,
       "message": "Repeated rate-limit events detected in usage/session logs.",
       "excerpt": "multiple 429/rate-limit entries observed",
@@ -40,7 +40,7 @@
     {
       "rule_id": "shortened-link",
       "severity": "medium",
-      "path": "/private/tmp/watchclaw/examples/demo-openclaw/docs/install.md",
+      "path": "docs/install.md",
       "line_number": 9,
       "message": "Shortened link detected in documentation.",
       "excerpt": "Docs mirror: https://bit.ly/watchclaw-demo",
