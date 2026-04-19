@@ -4,6 +4,7 @@ import json
 import re
 from pathlib import Path
 
+from watchclaw.fs import is_ignored
 from watchclaw.models import Finding
 
 UNSAFE_PIPE_RE = re.compile(r'\b(?:curl|wget)\b[^\n|]*\|\s*(?:sh|bash|zsh)\b', re.IGNORECASE)
@@ -25,6 +26,8 @@ def scan_openclaw(root: Path) -> list[Finding]:
 def _scan_lobster_files(root: Path) -> list[Finding]:
     findings: list[Finding] = []
     for path in root.rglob('*.lobster'):
+        if is_ignored(path, root):
+            continue
         try:
             lines = path.read_text(encoding='utf-8').splitlines()
         except UnicodeDecodeError:

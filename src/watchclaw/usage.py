@@ -4,9 +4,12 @@ import json
 from pathlib import Path
 from typing import Any
 
+from watchclaw.fs import is_ignored, is_transcript
 from watchclaw.models import Finding
 
-HIGH_TOKEN_THRESHOLD = 30000
+# Raised from 30000 — normal Opus turns routinely hit ~30k tokens, so the
+# old threshold fired on healthy sessions and created first-run noise.
+HIGH_TOKEN_THRESHOLD = 60000
 RATE_LIMIT_THRESHOLD = 3
 CONTEXT_DIAG_MARKERS = ('context-overflow-diag', 'compaction-diag')
 
@@ -21,6 +24,8 @@ def scan_usage(root: Path) -> list[Finding]:
 def _candidate_files(root: Path) -> list[Path]:
     candidates: list[Path] = []
     for path in root.rglob('*.jsonl'):
+        if is_ignored(path, root):
+            continue
         lower = str(path).lower()
         if any(part in lower for part in ('session', 'usage', 'watchdog', 'run')):
             candidates.append(path)
@@ -33,6 +38,14 @@ def _scan_jsonl(path: Path) -> list[Finding]:
         lines = path.read_text(encoding='utf-8').splitlines()
     except UnicodeDecodeError:
         return findings
+
+    # Session transcripts legitimately contain large single-turn token counts
+    # during normal long Opus/Sonnet work. Only surface high-token-turn on
+    # files that are meant to be usage metrics (not chat transcripts).
+    #
+    # We pass no root here because the caller already filtered candidates;
+    # at this stage the rule decision is about the individual file path.
+    track_high_token = not is_transcript(path)
 
     rate_limit_hits = 0
     highest_token: tuple[int, int] | None = None
@@ -56,10 +69,11 @@ def _scan_jsonl(path: Path) -> list[Finding]:
                         remediation='Investigate prompt/context growth, model choice, and retry policy before public-facing failures stack up.',
                     )
                 )
-        total_tokens = _extract_max_total_tokens(obj)
-        if total_tokens is not None and total_tokens >= HIGH_TOKEN_THRESHOLD:
-            if highest_token is None or total_tokens > highest_token[1]:
-                highest_token = (idx, total_tokens)
+        if track_high_token:
+            total_tokens = _extract_max_total_tokens(obj)
+            if total_tokens is not None and total_tokens >= HIGH_TOKEN_THRESHOLD:
+                if highest_token is None or total_tokens > highest_token[1]:
+                    highest_token = (idx, total_tokens)
         if context_diag_line is None and _contains_context_diag(obj):
             context_diag_line = idx
 

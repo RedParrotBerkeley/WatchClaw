@@ -31,9 +31,6 @@ Findings: **13**
 - **MEDIUM** `context-compaction-pressure` in `agents/main/sessions/demo.jsonl:3` — Context overflow or compaction diagnostics appeared in session logs.
   - Excerpt: `context-overflow-diag / compaction-diag marker observed`
   - Fix: Investigate long-lived sessions, earlier compaction, or smaller delegated runs before cache churn becomes expensive.
-- **MEDIUM** `high-token-turn` in `agents/main/sessions/demo.jsonl:3` — Large single-turn token usage detected.
-  - Excerpt: `totalTokens=35000`
-  - Fix: Trim carried context or move heavy reasoning into smaller delegated runs to reduce token pressure.
 - **MEDIUM** `repeated-rate-limit-events` in `agents/main/sessions/demo.jsonl:3` — Repeated rate-limit events detected in usage/session logs.
   - Excerpt: `multiple 429/rate-limit entries observed`
   - Fix: Investigate prompt/context growth, model choice, and retry policy before public-facing failures stack up.
@@ -46,6 +43,9 @@ Findings: **13**
 - **MEDIUM** `shortened-link` in `docs/install.md:9` — Shortened link detected in documentation.
   - Excerpt: `Docs mirror: https://bit.ly/watchclaw-demo`
   - Fix: Prefer explicit destination URLs so operators can inspect the domain before opening it.
+- **MEDIUM** `high-token-turn` in `usage.jsonl:1` — Large single-turn token usage detected.
+  - Excerpt: `totalTokens=112000`
+  - Fix: Trim carried context or move heavy reasoning into smaller delegated runs to reduce token pressure.
 - **MEDIUM** `lobster-unrestricted-expansion` in `workflows/deploy.lobster:3` — Lobster command contains direct variable expansion that deserves review.
   - Excerpt: `- command: echo ${USER}`
   - Fix: Review variable expansion in command lines and prefer validated inputs or quoting for untrusted values.

@@ -3,10 +3,15 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from watchclaw.fs import is_ignored, is_transcript
 from watchclaw.models import Finding
 
 WORKFLOW_EXTENSIONS = {'.yml', '.yaml', '.json', '.sh', '.toml'}
-WORKFLOW_NAME_HINTS = ('workflow', 'action', 'ci', 'cron', 'script', '.github')
+# "script" was removed as a hint because OpenClaw trees legitimately keep
+# agent-specific helper scripts under workspace-*/scripts/ that aren't CI
+# workflows; matching on that substring produced large numbers of
+# workflow-curl-pipe-shell false positives on real trees.
+WORKFLOW_NAME_HINTS = ('workflow', 'action', 'ci', 'cron', '.github')
 UNSAFE_INTERPOLATION = re.compile(r'\$\{\{\s*github\.(?:event|head_ref|ref_name|actor)[^}]*\}\}')
 
 
@@ -14,6 +19,8 @@ def scan_workflows(root: Path) -> list[Finding]:
     findings: list[Finding] = []
     for path in root.rglob('*'):
         if not path.is_file() or path.suffix.lower() not in WORKFLOW_EXTENSIONS:
+            continue
+        if is_ignored(path, root) or is_transcript(path, root):
             continue
         if not _looks_relevant(path):
             continue

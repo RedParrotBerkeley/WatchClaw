@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from watchclaw.fs import is_ignored, is_transcript
 from watchclaw.models import Finding
 
 DOC_EXTENSIONS = {'.md', '.mdx', '.txt'}
@@ -26,6 +27,8 @@ def scan_docs(root: Path) -> list[Finding]:
         if not path.is_file() or path.suffix.lower() not in DOC_EXTENSIONS:
             continue
         if path.name.startswith(EXCLUDED_NAME_PREFIXES):
+            continue
+        if is_ignored(path, root) or is_transcript(path, root):
             continue
         findings.extend(_scan_doc(path))
     return findings

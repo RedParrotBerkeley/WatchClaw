@@ -1,0 +1,2 @@
+{"ts":"2026-04-18T10:00:00Z","kind":"turn","agent":"main","model":"claude-opus-4-7","usage":{"inputTokens":78000,"outputTokens":34000,"totalTokens":112000}}
+{"ts":"2026-04-18T10:00:04Z","kind":"turn","agent":"main","model":"claude-opus-4-7","usage":{"inputTokens":2400,"outputTokens":180,"totalTokens":2580}}
