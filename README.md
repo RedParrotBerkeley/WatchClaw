@@ -428,3 +428,8 @@ A single scan can emit:
 - **Core capability:** Drag-and-drop repo scanner with policy and observability-oriented checks.
 - **Primary stack:** Python scanner + shell entrypoint for local OpenClaw repos.
 - **Status:** Active utility project for security-minded OpenClaw workflows.
+
+
+## Related projects
+
+- [agent-black-box](https://github.com/mikepatraw/agent-black-box) — operational debugging for AI agent runs.\n- [Fredsidian](https://github.com/mikepatraw/Fredsidian) — memory architecture patterns for assistants.\n- [rx-guard](https://github.com/mikepatraw/rx-guard) — production-minded AI safety workflow project.
