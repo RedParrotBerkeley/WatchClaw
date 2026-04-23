@@ -420,3 +420,11 @@ A single scan can emit:
 - GitHub-ready markdown summary
 - compact Discord alert text
 - JSON findings payload
+
+
+## Portfolio snapshot
+
+- **Problem:** OpenClaw operators need fast visibility into risky docs/workflow patterns and runtime anomalies.
+- **Core capability:** Drag-and-drop repo scanner with policy and observability-oriented checks.
+- **Primary stack:** Python scanner + shell entrypoint for local OpenClaw repos.
+- **Status:** Active utility project for security-minded OpenClaw workflows.
